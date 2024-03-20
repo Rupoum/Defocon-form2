@@ -17,6 +17,8 @@ import Roll from "../questions/Roll";
 import TryHackId from "../questions/TryHackId";
 import Year from "../questions/Year";
 import Rate from "../questions/Rate";
+import { CreateUser } from "@/actions/form-submit";
+import { UserSchema } from "@/lib/types";
 
 function Mainform() {
   const [page, setPage] = useState(0);
@@ -31,11 +33,41 @@ function Mainform() {
     { Component: Rate, name: "Rate" },
   ];
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    roll: "",
+    id: "",
+    year: "",
+    rate: "",
+  });
+
+  const [errors, SetError] = useState<Zod.ZodError>();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const progress = (page / (components.length - 1)) * 100;
+
+  const formSubmit = async () => {
+    const result = UserSchema.safeParse(formData);
+
+    console.log(formData);
+
+    if (!result.success) {
+      console.log(result.error.issues);
+      SetError(result.error);
+      return;
+    }
+
+    await CreateUser(result.data);
+  };
 
   const PageDisplay = () => {
     const Component = components[page].Component;
-    return <Component key={page} />;
+    return <Component handleChange={handleChange} key={page} />;
   };
 
   return (
@@ -46,7 +78,10 @@ function Mainform() {
           style={{ width: `${progress}%` }}
         ></div>
       </div>
-      <div className="w-full p-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+      <form
+        action={formSubmit}
+        className="w-full p-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+      >
         <AnimatePresence>
           <motion.div
             key={page}
@@ -102,6 +137,9 @@ function Mainform() {
                     <Button
                       size="sm"
                       className="bg-transparent text-white"
+                      type={
+                        page === components.length - 1 ? "submit" : "button"
+                      }
                       onClick={() => {
                         if (page === components.length - 1) {
                           alert("form submitted");
@@ -118,7 +156,7 @@ function Mainform() {
             </Card>
           </motion.div>
         </AnimatePresence>
-      </div>
+      </form>
     </div>
   );
 }

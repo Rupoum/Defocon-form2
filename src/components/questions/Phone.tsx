@@ -1,17 +1,21 @@
+import { User } from "@/lib/types";
 import React from "react";
 
 type Props = {};
 
 function Phone({
   handleChange,
+  formData,
 }: {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  formData: User;
 }) {
   return (
     <div>
       <input
         onChange={handleChange}
         type="tel"
+        value={formData.phone}
         name="phone"
         id="phone"
         placeholder="Type your phone no  here .."

@@ -67,7 +67,9 @@ function Mainform() {
 
   const PageDisplay = () => {
     const Component = components[page].Component;
-    return <Component handleChange={handleChange} key={page} />;
+    return (
+      <Component formData={formData} handleChange={handleChange} key={page} />
+    );
   };
 
   useEffect(() => {

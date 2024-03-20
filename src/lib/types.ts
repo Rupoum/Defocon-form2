@@ -5,9 +5,12 @@ export const UserSchema = z.object({
   email: z.string().email("Invalid email address"),
   phone: z
     .string()
-    .length(11)
+    .length(10, "Phone numbers must be of 10 digits")
     .regex(/^[0-9]+$/, "Phone number must contain only digits"),
-  roll: z.literal(7),
+  roll: z
+    .string()
+    .length(7, "Roll numbers must be of 7 digits")
+    .regex(/^[0-9]+$/, "Phone number must contain only digits"),
   tryhackmeId: z.string(),
   year: z.enum(["Year 1", "Year 2", "Year 3", "Year 4"]),
   rate: z.enum(["beginner", "advanced"]),

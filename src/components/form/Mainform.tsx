@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Name from "@/components/questions/Name";
@@ -70,6 +70,24 @@ function Mainform() {
     return <Component handleChange={handleChange} key={page} />;
   };
 
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        if (page === components.length - 1) {
+          alert("Form submitted");
+        } else {
+          setPage((currPage) => currPage + 1);
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [page, components.length]);
+
   return (
     <div className="flex w-full h-full">
       <div className="w-full absolute overflow-hidden z-20 bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-gray-700">
@@ -86,26 +104,20 @@ function Mainform() {
           <motion.div
             key={page}
             layoutId="card"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
             transition={{
-              duration: 0.5,
-              when: "beforeChildren", // Animate the parent div first
+              duration: 0.75,
+              // when: "beforeChildren", // Animate the parent div first
             }}
           >
-            <Card className="px-5 sm:px-28 md:px-40 bg-black overflow-hidden">
+            <Card className="px-5 sm:px-28 md:px-40 bg-black border-none overflow-hidden">
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{
-                  opacity: 0,
-                  transition: { delay: 0.3 }, // Delay after exit animation
-                }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.5, // Delay before the next animation starts
-                }}
+                initial={{ opacity: 0, x: 100 }} // Initial state with opacity 0 and x position 100 (off-screen to the right)
+                animate={{ opacity: 1, x: 0 }} // Animation to make the content appear with opacity 1 and x position 0
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 1 }} // Transition duration for the animation
               >
                 <div className="">
                   <CardHeader>

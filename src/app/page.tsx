@@ -1,4 +1,4 @@
-import TrippyScroll from "@/components/animation/TrippyScroll";
+
 
 import Link from "next/link";
 export default function Page() {
@@ -10,9 +10,9 @@ export default function Page() {
         delectus ipsa, facilis sit corporis voluptates, eveniet ad nobis.
         Repellat, eum architecto.
       </section>
-      <TrippyScroll/>
+    
       <div className="absolute w-screen h-24  flex justify-center bottom-0">
-        <Link href="/form">Start</Link>
+        <Link href="/form">Register</Link>
       </div>
     </div>
   );

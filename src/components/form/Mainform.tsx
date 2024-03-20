@@ -94,13 +94,13 @@ function Mainform() {
     <div className="flex w-full h-full">
       <div className="w-full absolute overflow-hidden z-20 bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-gray-700">
         <div
-          className="bg-blue-600 h-1.5 rounded-full dark:bg-blue-500 transition-all ease-linear"
+          className="bg-green-500 h-1.5 rounded-full dark:bg-green-500 transition-all ease-linear"
           style={{ width: `${progress}%` }}
         ></div>
       </div>
       <form
         action={formSubmit}
-        className="w-full p-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+        className="w-full pr-8 pl-0 absolute overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
       >
         <motion.div
           key={page}
@@ -113,7 +113,7 @@ function Mainform() {
             // when: "beforeChildren", // Animate the parent div first
           }}
         >
-          <Card className="px-5 sm:px-28 md:px-40 bg-black border-none overflow-hidden">
+          <Card className="pr-11 sm:px-28 md:px-40 bg-black border-none overflow-hidden">
             <motion.div
               initial={{ opacity: 0, x: 100 }} // Initial state with opacity 0 and x position 100 (off-screen to the right)
               animate={{ opacity: 1, x: 0 }} // Animation to make the content appear with opacity 1 and x position 0
@@ -138,7 +138,7 @@ function Mainform() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>{PageDisplay()}</CardContent>
-                <CardFooter className="flex gap-10">
+                <CardFooter className="flex gap-5 sm:gap-10 ">
                   <Button
                     size="sm"
                     disabled={page === 0}
@@ -149,7 +149,7 @@ function Mainform() {
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-transparent text-white"
+                    className="bg-green-400 hover:bg-green-400 text-white"
                     
                     type={page === components.length - 1 ? "submit" : "button"}
                     onClick={() => {

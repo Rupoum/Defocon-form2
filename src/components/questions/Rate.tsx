@@ -15,7 +15,7 @@ function Rate({
         How well are you acquainted with cybersecurity ?
       </Label>
       <RadioGroup defaultValue="beginner">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center mt-5 space-x-2">
           <RadioGroupItem value="beginner" id="rate" className="bg-white" />
           <Label htmlFor="beginner" className="text-white">
             Beginner

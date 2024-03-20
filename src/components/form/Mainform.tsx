@@ -28,7 +28,7 @@ function Mainform() {
     { Component: Mail, name: "Mail" },
     { Component: Phone, name: "Phone" },
     { Component: Roll, name: "Roll" },
-    { Component: TryHackId, name: "TryHackId" },
+    { Component: TryHackId, name: "TryHackMeId" },
     { Component: Year, name: "Year" },
     { Component: Rate, name: "Rate" },
   ];
@@ -100,7 +100,7 @@ function Mainform() {
       </div>
       <form
         action={formSubmit}
-        className="w-full p-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+        className="w-full p-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
       >
         <motion.div
           key={page}
@@ -150,6 +150,7 @@ function Mainform() {
                   <Button
                     size="sm"
                     className="bg-transparent text-white"
+                    
                     type={page === components.length - 1 ? "submit" : "button"}
                     onClick={() => {
                       if (page === components.length - 1) {

@@ -19,7 +19,7 @@ function Phone({
         name="phone"
         id="phone"
         placeholder="Type your phone no  here .."
-        className="border-b w-96 focus:outline-none py-1 focus:border-b-2 peer text-white bg-black"
+        className="border-b w-72 sm:w-96 focus:outline-none py-1 focus:border-b-2 peer text-white bg-black"
       />
     </div>
   );

@@ -24,8 +24,12 @@ function Rate({
       </Label>
       <RadioGroup
         defaultValue="beginner"
-        value={formData[name]}
-        onValueChange={(value) => handleChange({ target: { name, value } })}
+        value={formData[name as keyof User]}
+        onValueChange={(value) =>
+          handleChange({
+            target: { name, value },
+          } as React.ChangeEvent<HTMLInputElement>)
+        }
       >
         <div className="flex items-center mt-5 space-x-2">
           <RadioGroupItem value="beginner" id="rate" className="bg-white" />

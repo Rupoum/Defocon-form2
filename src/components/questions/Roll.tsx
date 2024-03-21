@@ -21,7 +21,7 @@ function Roll({
       <Input
         onChange={handleChange}
         type="number"
-        value={formData[name]}
+        value={formData[name as keyof User]}
         name={name}
         id={name}
         placeholder="Type your roll no  here .."

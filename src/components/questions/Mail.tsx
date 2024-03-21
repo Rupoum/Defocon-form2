@@ -20,7 +20,7 @@ const Mail = ({
         type="email"
         name={name}
         id={name}
-        value={formData[name]}
+        value={formData[name as keyof User]}
         onChange={handleChange}
         placeholder="Type your email here .."
       />

@@ -65,10 +65,10 @@ function Mainform() {
 
   const validateSinglePage = () => {
     const fieldToValidate = components[page].name;
-    const fieldValue = formData[fieldToValidate];
+    const fieldValue = formData[fieldToValidate as keyof User];
 
     const schema = z.object({
-      [fieldToValidate]: UserSchema.shape[fieldToValidate],
+      [fieldToValidate]: UserSchema.shape[fieldToValidate as keyof User],
     });
 
     const result = schema.safeParse({ [fieldToValidate]: fieldValue });

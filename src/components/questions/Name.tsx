@@ -24,7 +24,7 @@ const Name = ({
         onChange={handleChange}
         name={name}
         id={name}
-        value={formData[name]}
+        value={formData[name as keyof User]}
         placeholder="Type your name here .."
       />
       {issues &&

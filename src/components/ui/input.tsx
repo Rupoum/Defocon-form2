@@ -21,11 +21,12 @@ const Input = ({
     <input
       id={id}
       type={type}
+      autoComplete="false"
       name={name}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="border-b w-full focus:outline-none md:text-xl  py-1 focus:border-b-2 peer text-white bg-transparent"
+      className="border-b md:w-[500px] w-full sm:w-96 min-[375px]:w-72 focus:outline-none md:text-xl  py-1 focus:border-b-2 peer text-white bg-transparent"
     />
   );
 };

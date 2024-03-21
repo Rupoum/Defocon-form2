@@ -24,12 +24,7 @@ function TryHackId({
         name={name}
         id={name}
         value={formData[name]}
-<<<<<<< HEAD
         placeholder="Type your TryHackMe Id here .."
-=======
-        placeholder=" TryHackMe Id if you have .."
-        className="border-b w-72 sm:w-96 focus:outline-none py-1 focus:border-b-2 peer text-white bg-black"
->>>>>>> 3d3fb5e42d08c6175e078f6f83df78d021a21426
       />
       {issues &&
         issues.issues.map((issue) => (

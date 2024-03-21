@@ -19,7 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Toaster />
-        <div className="min-h-screen text-white bg-black">{children}</div>
+        <div className="min-h-screen text-white autofill:text-white bg-black">
+          {children}
+        </div>
       </body>
     </html>
   );

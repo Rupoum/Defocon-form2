@@ -158,7 +158,8 @@ function Mainform() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{
-            duration: 0.75,
+            type:"spring",
+            duration: 1,
             // when: "beforeChildren", // Animate the parent div first
           }}
         >
@@ -167,7 +168,9 @@ function Mainform() {
               initial={{ opacity: 0, x: 100 }} // Initial state with opacity 0 and x position 100 (off-screen to the right)
               animate={{ opacity: 1, x: 0 }} // Animation to make the content appear with opacity 1 and x position 0
               exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 1 }} // Transition duration for the animation
+              transition={{ 
+                type:"spring",
+                duration: 1 }} // Transition duration for the animation
             >
               <div className="">
                 <CardHeader>

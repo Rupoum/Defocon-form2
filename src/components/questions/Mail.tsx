@@ -13,6 +13,7 @@ const Mail = ({
   return (
     <div>
       <input
+    
         type="email"
         name="email"
         id="email"

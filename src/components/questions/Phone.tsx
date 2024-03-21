@@ -13,6 +13,7 @@ function Phone({
   return (
     <div>
       <input
+    
         onChange={handleChange}
         type="tel"
         value={formData.phone}

@@ -18,32 +18,67 @@ import TryHackId from "../questions/TryHackId";
 import Year from "../questions/Year";
 import Rate from "../questions/Rate";
 import { CreateUser } from "@/actions/form-submit";
-import { UserSchema } from "@/lib/types";
+import { User, UserSchema } from "@/lib/types";
+import { useRouter } from "next/navigation";
+import { z, ZodError } from "zod";
 
 function Mainform() {
   const [page, setPage] = useState(0);
 
   const components = [
-    { Component: Name, name: "Name" },
-    { Component: Mail, name: "Mail" },
-    { Component: Phone, name: "Phone" },
-    { Component: Roll, name: "Roll" },
-    { Component: TryHackId, name: "TryHackMeId" },
-    { Component: Year, name: "Year" },
-    { Component: Rate, name: "Rate" },
+    { Component: Name, name: "name", title: "Name" },
+    { Component: Mail, name: "email", title: "Email" },
+    { Component: Phone, name: "phone", title: "Phone Number" },
+    { Component: Roll, name: "roll", title: "Roll Number" },
+    { Component: TryHackId, name: "id", title: "Try hack me Id" },
+    { Component: Year, name: "year", title: "Year" },
+    { Component: Rate, name: "rate", title: "Experience" },
   ];
 
-  const [formData, setFormData] = useState({
+  const router = useRouter();
+
+  const [formData, setFormData] = useState<User>({
     name: "",
     email: "",
     phone: "",
     roll: "",
     id: "",
-    year: "",
-    rate: "",
+    year: "1",
+    rate: "beginner",
   });
 
-  const [errors, SetError] = useState<Zod.ZodError>();
+  const [errors, SetError] = useState<ZodError | null>(null);
+
+  const PageDisplay = () => {
+    const Component = components[page].Component;
+    return (
+      <Component
+        name={components[page].name}
+        issues={errors}
+        formData={formData}
+        handleChange={handleChange}
+        key={page}
+      />
+    );
+  };
+
+  const validate = () => {
+    const fieldToValidate = components[page].name.toLowerCase();
+    const fieldValue = formData[fieldToValidate];
+
+    const schema = z.object({
+      [fieldToValidate]: UserSchema.shape[fieldToValidate],
+    });
+
+    const result = schema.safeParse({ [fieldToValidate]: fieldValue });
+
+    if (!result.success) {
+      console.log(result.error.issues);
+      SetError(result.error);
+      return;
+    }
+    return result;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,24 +87,23 @@ function Mainform() {
   const progress = (page / (components.length - 1)) * 100;
 
   const formSubmit = async () => {
-    const result = UserSchema.safeParse(formData);
+    const result = validate();
 
-    console.log(formData);
+    const res = await CreateUser(result.data);
 
-    if (!result.success) {
-      console.log(result.error.issues);
-      SetError(result.error);
-      return;
+    if (res.success) {
+      router.push("/outro");
     }
-
-    await CreateUser(result.data);
   };
 
-  const PageDisplay = () => {
-    const Component = components[page].Component;
-    return (
-      <Component formData={formData} handleChange={handleChange} key={page} />
-    );
+  const nextPage = () => {
+    const result = validate();
+    if (!result?.success) {
+      console.log(result?.success);
+    } else {
+      SetError(null);
+      setPage((currPage) => currPage + 1);
+    }
   };
 
   useEffect(() => {
@@ -94,7 +128,7 @@ function Mainform() {
     <div className="flex w-full h-full">
       <div className="w-full absolute overflow-hidden z-20 bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-gray-700">
         <div
-          className="bg-green-500 h-1.5 rounded-full dark:bg-green-500 transition-all ease-linear"
+          className="bg-primary-color h-1.5 rounded-full dark:bg-green-500 transition-all ease-linear"
           style={{ width: `${progress}%` }}
         ></div>
       </div>
@@ -133,7 +167,7 @@ function Mainform() {
                       />
                     </span>
                     <span className="text-lg mx-2 font-normal">
-                      {components[page].name}
+                      {components[page].title}
                     </span>
                   </CardTitle>
                 </CardHeader>
@@ -149,14 +183,13 @@ function Mainform() {
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-green-400 hover:bg-green-400 text-white"
-                    
+                    className="bg-primary-color hover:bg-primary-color/70 text-white"
                     type={page === components.length - 1 ? "submit" : "button"}
                     onClick={() => {
                       if (page === components.length - 1) {
                         alert("form submitted");
                       } else {
-                        setPage((currPage) => currPage + 1);
+                        nextPage();
                       }
                     }}
                   >

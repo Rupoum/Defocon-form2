@@ -22,6 +22,7 @@ import { User, UserSchema } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { z, ZodError } from "zod";
 import { Toaster, toast } from "sonner";
+import Spinner from "../ui/spinner";
 
 function Mainform() {
   const [page, setPage] = useState(0);
@@ -49,6 +50,7 @@ function Mainform() {
   });
 
   const [errors, SetError] = useState<ZodError | null>(null);
+  const [submitting, SetSubmitting] = useState<boolean>(false);
 
   const PageDisplay = () => {
     const Component = components[page].Component;
@@ -87,6 +89,7 @@ function Mainform() {
   const progress = (page / (components.length - 1)) * 100;
 
   const formSubmit = async () => {
+    SetSubmitting(true);
     const result = UserSchema.safeParse(formData);
 
     if (!result.success) {
@@ -102,6 +105,7 @@ function Mainform() {
     } else {
       toast.error(res.error.message);
     }
+    SetSubmitting(false);
   };
 
   const nextPage = () => {
@@ -137,7 +141,6 @@ function Mainform() {
 
   return (
     <div className="flex w-full h-full">
-      <Toaster />
       <div className="w-full absolute overflow-hidden z-20 bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-gray-700">
         <div
           className="bg-primary-color h-1.5 rounded-full dark:bg-green-500 transition-all ease-linear"
@@ -205,6 +208,7 @@ function Mainform() {
                     }}
                   >
                     {page === components.length - 1 ? "Submit" : "Next"}
+                    {submitting && <Spinner />}
                   </Button>
                 </CardFooter>
               </div>

@@ -29,7 +29,7 @@ const Name = ({
       />
       {issues &&
         issues.issues.map((issue) => (
-          <p className="text-red-800" key={issue.code}>
+          <p className="text-red-800 text-xs md:text-base" key={issue.code}>
             {issue.message}
           </p>
         ))}

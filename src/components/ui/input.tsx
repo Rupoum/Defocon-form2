@@ -25,7 +25,7 @@ const Input = ({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="border-b w-full focus:outline-none  py-1 focus:border-b-2 peer text-white bg-transparent"
+      className="border-b w-full focus:outline-none md:text-xl  py-1 focus:border-b-2 peer text-white bg-transparent"
     />
   );
 };

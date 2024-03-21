@@ -3,6 +3,7 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import { User } from "@/lib/types";
 import { ZodError } from "zod";
+import Input from "../ui/input";
 type Props = {};
 
 const Name = ({
@@ -18,15 +19,13 @@ const Name = ({
 }) => {
   return (
     <div className="relative ">
-      <input
-    autoComplete="off"
+      <Input
         type="text"
         onChange={handleChange}
         name={name}
         id={name}
         value={formData[name]}
         placeholder="Type your name here .."
-        className="border-b w-72 sm:w-96 focus:outline-none py-1 md:text-xl focus:border-b-2 peer text-white bg-transparent"
       />
       {issues &&
         issues.issues.map((issue) => (

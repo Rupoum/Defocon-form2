@@ -11,7 +11,7 @@ export const UserSchema = z.object({
     .string()
     .length(7, "Roll numbers must be of 7 digits")
     .regex(/^[0-9]+$/, "Roll number must contain only digits"),
-  id: z.string().min(0),
+  tryhackmeId: z.string(),
   year: z.enum(["1", "2", "3", "4"], {
     errorMap: (issue, ctx) => {
       return { message: "Please select your Year" };

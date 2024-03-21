@@ -21,6 +21,7 @@ import { CreateUser } from "@/actions/form-submit";
 import { User, UserSchema } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { z, ZodError } from "zod";
+import { Toaster, toast } from "sonner";
 
 function Mainform() {
   const [page, setPage] = useState(0);
@@ -30,7 +31,7 @@ function Mainform() {
     { Component: Mail, name: "email", title: "Email" },
     { Component: Phone, name: "phone", title: "Phone Number" },
     { Component: Roll, name: "roll", title: "Roll Number" },
-    { Component: TryHackId, name: "id", title: "Try hack me Id" },
+    { Component: TryHackId, name: "tryhackmeId", title: "Try hack me Id" },
     { Component: Year, name: "year", title: "Year" },
     { Component: Rate, name: "rate", title: "Experience" },
   ];
@@ -42,7 +43,7 @@ function Mainform() {
     email: "",
     phone: "",
     roll: "",
-    id: "",
+    tryhackmeId: "",
     year: "1",
     rate: "beginner",
   });
@@ -63,7 +64,7 @@ function Mainform() {
   };
 
   const validateSinglePage = () => {
-    const fieldToValidate = components[page].name.toLowerCase();
+    const fieldToValidate = components[page].name;
     const fieldValue = formData[fieldToValidate];
 
     const schema = z.object({
@@ -73,7 +74,6 @@ function Mainform() {
     const result = schema.safeParse({ [fieldToValidate]: fieldValue });
 
     if (!result.success) {
-      console.log(result.error.issues);
       SetError(result.error);
       return;
     }
@@ -90,7 +90,6 @@ function Mainform() {
     const result = UserSchema.safeParse(formData);
 
     if (!result.success) {
-      console.log(result.error.issues);
       SetError(result.error);
       return;
     }
@@ -98,16 +97,16 @@ function Mainform() {
     const res = await CreateUser(result.data);
 
     if (res.success) {
-      
-      console.log(result.data)
+      toast.success("Successfully Applied!");
       router.push("/outro");
+    } else {
+      toast.error(res.error.message);
     }
   };
 
   const nextPage = () => {
     const result = validateSinglePage();
     if (!result?.success) {
-      console.log(result?.success);
     } else {
       SetError(null);
       setPage((currPage) => currPage + 1);
@@ -121,12 +120,10 @@ function Mainform() {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === "Enter") {
-       
         if (page === components.length - 1) {
-          console.log("form submitted")
-        
+          formSubmit();
         } else {
-          nextPage()
+          nextPage();
         }
       }
     };
@@ -140,6 +137,7 @@ function Mainform() {
 
   return (
     <div className="flex w-full h-full">
+      <Toaster />
       <div className="w-full absolute overflow-hidden z-20 bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-gray-700">
         <div
           className="bg-primary-color h-1.5 rounded-full dark:bg-green-500 transition-all ease-linear"
@@ -148,7 +146,7 @@ function Mainform() {
       </div>
       <form
         action={formSubmit}
-        className="w-full pr-8 absolute overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+        className="w-full pr-8 absolute flex justify-center overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
       >
         <motion.div
           key={page}
@@ -161,7 +159,7 @@ function Mainform() {
             // when: "beforeChildren", // Animate the parent div first
           }}
         >
-          <Card className="px-5 sm:ml-40  md:ml-72 bg-black border-none overflow-hidden">
+          <Card className="px-5  bg-black border-none overflow-hidden">
             <motion.div
               initial={{ opacity: 0, x: 100 }} // Initial state with opacity 0 and x position 100 (off-screen to the right)
               animate={{ opacity: 1, x: 0 }} // Animation to make the content appear with opacity 1 and x position 0
@@ -185,7 +183,7 @@ function Mainform() {
                     </span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent >{PageDisplay()}</CardContent>
+                <CardContent>{PageDisplay()}</CardContent>
                 <CardFooter className="flex gap-5 sm:gap-10 ">
                   <Button
                     size="sm"
@@ -201,7 +199,6 @@ function Mainform() {
                     type={page === components.length - 1 ? "submit" : "button"}
                     onClick={() => {
                       if (page === components.length - 1) {
-                        alert("form submitted");
                       } else {
                         nextPage();
                       }

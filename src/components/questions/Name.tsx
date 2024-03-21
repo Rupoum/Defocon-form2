@@ -19,6 +19,7 @@ const Name = ({
   return (
     <div className="relative ">
       <input
+    
         type="text"
         onChange={handleChange}
         name={name}

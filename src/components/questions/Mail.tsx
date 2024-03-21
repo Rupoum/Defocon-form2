@@ -16,6 +16,7 @@ const Mail = ({
   return (
     <div>
       <input
+    
         type="email"
         name={name}
         id={name}

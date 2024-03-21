@@ -134,7 +134,7 @@ function Mainform() {
       </div>
       <form
         action={formSubmit}
-        className="w-full pr-8 pl-0 absolute overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+        className="w-full pr-8 absolute overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
       >
         <motion.div
           key={page}
@@ -147,7 +147,7 @@ function Mainform() {
             // when: "beforeChildren", // Animate the parent div first
           }}
         >
-          <Card className="pr-11 sm:px-28 md:px-40 bg-black border-none overflow-hidden">
+          <Card className="px-5 sm:px-28 md:px-40 bg-black border-none overflow-hidden">
             <motion.div
               initial={{ opacity: 0, x: 100 }} // Initial state with opacity 0 and x position 100 (off-screen to the right)
               animate={{ opacity: 1, x: 0 }} // Animation to make the content appear with opacity 1 and x position 0

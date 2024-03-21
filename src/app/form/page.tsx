@@ -5,7 +5,7 @@ export default function FormPage() {
     <div className="">
       <Form />
       <div className="mt-5 ml-3" >
-      <Image src={"/asstes/icons/mlsa.png"} alt="mlsa logo" height={60} width={60}/></div>
+      <Image src={"/asstes/icons/mlsa.png"} alt="mlsa logo" height={200} width={200}/></div>
     </div>
   );
 }

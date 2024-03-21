@@ -18,6 +18,7 @@ function TryHackId({
   return (
     <div>
       <input
+        autoFocus
         onChange={handleChange}
         type="url"
         name={name}

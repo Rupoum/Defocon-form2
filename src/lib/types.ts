@@ -10,10 +10,18 @@ export const UserSchema = z.object({
   roll: z
     .string()
     .length(7, "Roll numbers must be of 7 digits")
-    .regex(/^[0-9]+$/, "Phone number must contain only digits"),
-  tryhackmeId: z.string(),
-  year: z.enum(["Year 1", "Year 2", "Year 3", "Year 4"]),
-  rate: z.enum(["beginner", "advanced"]),
+    .regex(/^[0-9]+$/, "Roll number must contain only digits"),
+  id: z.string().min(1, "Id is required"),
+  year: z.enum(["1", "2", "3", "4"], {
+    errorMap: (issue, ctx) => {
+      return { message: "Please select your Year" };
+    },
+  }),
+  rate: z.enum(["beginner", "advanced"], {
+    errorMap: (issue, ctx) => {
+      return { message: "Please select your Experience" };
+    },
+  }),
 });
 
 export type User = z.infer<typeof UserSchema>;

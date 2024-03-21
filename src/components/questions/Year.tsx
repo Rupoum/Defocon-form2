@@ -6,17 +6,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ZodError } from "zod";
+import { User } from "@/lib/types";
 
 type Props = {};
 
 function Year({
   handleChange,
+  formData,
+  issues,
+  name,
 }: {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  formData: User;
+  issues: ZodError | null;
+  name: string;
 }) {
   return (
     <div>
-      <Select>
+      <Select
+        value={formData.year}
+        onValueChange={(value) => handleChange({ target: { name, value } })}
+      >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Select your current year" />
         </SelectTrigger>
@@ -30,6 +41,12 @@ function Year({
           })}
         </SelectContent>
       </Select>
+      {issues &&
+        issues.issues.map((issue) => (
+          <p className="text-red-800" key={issue.code}>
+            {issue.message}
+          </p>
+        ))}
     </div>
   );
 }

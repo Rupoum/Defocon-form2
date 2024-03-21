@@ -29,7 +29,7 @@ function Year({
         onValueChange={(value) => handleChange({ target: { name, value } })}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select your current year" />
+          <SelectValue placeholder="Select your current year " className="md:text-xl" />
         </SelectTrigger>
         <SelectContent>
           {[1, 2, 3, 4].map((year) => {
@@ -43,7 +43,7 @@ function Year({
       </Select>
       {issues &&
         issues.issues.map((issue) => (
-          <p className="text-red-800" key={issue.code}>
+          <p className="text-red-800 md:text-base text-xs" key={issue.code}>
             {issue.message}
           </p>
         ))}

@@ -8,7 +8,7 @@ const Outro = () => {
   return (
     <div className="h-screen w-screen flex gap-2 flex-col justify-center items-center">
       <Image src={Icon} alt="Icon" />
-      <h1 className="font-bold text-3xl mb-12 text-center">
+      <h1 className="font-bold md:text-3xl text-xl mb-12 mt-12 text-center">
         Thanks For Submitting!
       </h1>
       <Link href="/" className={buttonVariants({ variant: "default" })}>

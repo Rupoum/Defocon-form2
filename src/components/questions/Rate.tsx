@@ -19,7 +19,7 @@ function Rate({
 }) {
   return (
     <div>
-      <Label className="text-white" htmlFor="link">
+      <Label className="text-white mb-2 md:text-lg" htmlFor="link">
         How well are you acquainted with cybersecurity ?
       </Label>
       <RadioGroup
@@ -29,20 +29,20 @@ function Rate({
       >
         <div className="flex items-center mt-5 space-x-2">
           <RadioGroupItem value="beginner" id="rate" className="bg-white" />
-          <Label htmlFor="beginner" className="text-white">
+          <Label htmlFor="beginner" className="text-white md:text-base">
             Beginner
           </Label>
         </div>
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="advanced" id="rate" className="bg-white" />
-          <Label htmlFor="advanced" className="text-white">
+          <Label htmlFor="advanced" className="text-white md:text-base">
             Advanced
           </Label>
         </div>
       </RadioGroup>
       {issues &&
         issues.issues.map((issue) => (
-          <p className="text-red-800" key={issue.code}>
+          <p className="text-red-800 text-xs md:text-base" key={issue.code}>
             {issue.message}
           </p>
         ))}

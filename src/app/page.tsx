@@ -4,13 +4,14 @@ import Icon from "../../public/asstes/icons/mlsa.png";
 import { Form_Details } from "@/constants";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Example from "@/components/ui/button2";
 
 export default function Page() {
   return (
     <div className="h-screen text-white flex flex-col pt-12 px-4 gap-4 items-center">
       <Image src={Icon} alt="Icon" />
 
-      <h1 className="text-5xl font-bold ">{Form_Details.title}</h1>
+      <h1 className="text-3xl md:text-5xl font-bold mt-10">{Form_Details.title}</h1>
 
       <section className="text-center mt-4">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid totam
@@ -23,13 +24,15 @@ export default function Page() {
         <Link
           className={cn(
             buttonVariants({ variant: "default" }),
-            "text-3xl bg-green-600 w-64 h-12"
+            "text-2xl md:text-3xl bg-primary-color w-64 h-12"
           )}
           href="/form"
         >
           Register
         </Link>
+        
       </div>
+     
     </div>
   );
 }

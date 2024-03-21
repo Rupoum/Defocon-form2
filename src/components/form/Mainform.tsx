@@ -98,6 +98,8 @@ function Mainform() {
     const res = await CreateUser(result.data);
 
     if (res.success) {
+      
+      console.log(result.data)
       router.push("/outro");
     }
   };
@@ -119,10 +121,12 @@ function Mainform() {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === "Enter") {
+       
         if (page === components.length - 1) {
-          alert("Form submitted");
+          console.log("form submitted")
+        
         } else {
-          setPage((currPage) => currPage + 1);
+          nextPage()
         }
       }
     };
@@ -132,7 +136,7 @@ function Mainform() {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [page, components.length]);
+  }, [page]);
 
   return (
     <div className="flex w-full h-full">
@@ -157,7 +161,7 @@ function Mainform() {
             // when: "beforeChildren", // Animate the parent div first
           }}
         >
-          <Card className="px-5 sm:px-28 md:px-40 bg-black border-none overflow-hidden">
+          <Card className="px-5 sm:ml-40  md:ml-72 bg-black border-none overflow-hidden">
             <motion.div
               initial={{ opacity: 0, x: 100 }} // Initial state with opacity 0 and x position 100 (off-screen to the right)
               animate={{ opacity: 1, x: 0 }} // Animation to make the content appear with opacity 1 and x position 0
@@ -167,7 +171,7 @@ function Mainform() {
               <div className="">
                 <CardHeader>
                   <CardTitle className="flex text-white items-center">
-                    <span className="text-xs">{page + 1}</span>
+                    <span className="text-xs md:text-lg">{page + 1}</span>
                     <span>
                       <Image
                         src={"/asstes/icons/arrow-white2.png"}
@@ -176,12 +180,12 @@ function Mainform() {
                         width={15}
                       />
                     </span>
-                    <span className="text-lg mx-2 font-normal">
+                    <span className="text-lg mx-2 md:text-2xl font-normal">
                       {components[page].title}
                     </span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent>{PageDisplay()}</CardContent>
+                <CardContent >{PageDisplay()}</CardContent>
                 <CardFooter className="flex gap-5 sm:gap-10 ">
                   <Button
                     size="sm"

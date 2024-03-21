@@ -19,18 +19,18 @@ const Name = ({
   return (
     <div className="relative ">
       <input
-    
+    autoComplete="off"
         type="text"
         onChange={handleChange}
         name={name}
         id={name}
         value={formData[name]}
         placeholder="Type your name here .."
-        className="border-b w-72 sm:w-96 focus:outline-none py-1 focus:border-b-2 peer text-white bg-black"
+        className="border-b w-72 sm:w-96 focus:outline-none py-1 md:text-xl focus:border-b-2 peer text-white bg-transparent"
       />
       {issues &&
         issues.issues.map((issue) => (
-          <p className="text-red-800" key={issue.code}>
+          <p className="text-red-800 text-xs md:text-base" key={issue.code}>
             {issue.message}
           </p>
         ))}

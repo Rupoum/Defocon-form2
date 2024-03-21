@@ -1,6 +1,7 @@
 import { User } from "@/lib/types";
 import React from "react";
 import { z, ZodError } from "zod";
+import Input from "../ui/input";
 
 const Mail = ({
   handleChange,
@@ -15,15 +16,13 @@ const Mail = ({
 }) => {
   return (
     <div>
-      <input
-    
+      <Input
         type="email"
         name={name}
         id={name}
         value={formData[name]}
         onChange={handleChange}
         placeholder="Type your email here .."
-        className="border-b w-72 sm:w-96 focus:outline-none  py-1 focus:border-b-2 peer text-white bg-transparent"
       />
       {issues &&
         issues.issues.map((issue) => (

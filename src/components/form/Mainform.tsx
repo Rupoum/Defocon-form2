@@ -21,6 +21,7 @@ import { CreateUser } from "@/actions/form-submit";
 import { User, UserSchema } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { z, ZodError } from "zod";
+import { Toaster, toast } from "sonner";
 
 function Mainform() {
   const [page, setPage] = useState(0);
@@ -30,7 +31,7 @@ function Mainform() {
     { Component: Mail, name: "email", title: "Email" },
     { Component: Phone, name: "phone", title: "Phone Number" },
     { Component: Roll, name: "roll", title: "Roll Number" },
-    { Component: TryHackId, name: "id", title: "Try hack me Id" },
+    { Component: TryHackId, name: "tryhackmeId", title: "Try hack me Id" },
     { Component: Year, name: "year", title: "Year" },
     { Component: Rate, name: "rate", title: "Experience" },
   ];
@@ -42,7 +43,7 @@ function Mainform() {
     email: "",
     phone: "",
     roll: "",
-    id: "",
+    tryhackmeId: "",
     year: "1",
     rate: "beginner",
   });
@@ -63,7 +64,7 @@ function Mainform() {
   };
 
   const validateSinglePage = () => {
-    const fieldToValidate = components[page].name.toLowerCase();
+    const fieldToValidate = components[page].name;
     const fieldValue = formData[fieldToValidate];
 
     const schema = z.object({
@@ -73,7 +74,6 @@ function Mainform() {
     const result = schema.safeParse({ [fieldToValidate]: fieldValue });
 
     if (!result.success) {
-      console.log(result.error.issues);
       SetError(result.error);
       return;
     }
@@ -90,7 +90,6 @@ function Mainform() {
     const result = UserSchema.safeParse(formData);
 
     if (!result.success) {
-      console.log(result.error.issues);
       SetError(result.error);
       return;
     }
@@ -98,14 +97,16 @@ function Mainform() {
     const res = await CreateUser(result.data);
 
     if (res.success) {
+      toast.success("Successfully Applied!");
       router.push("/outro");
+    } else {
+      toast.error(res.error.message);
     }
   };
 
   const nextPage = () => {
     const result = validateSinglePage();
     if (!result?.success) {
-      console.log(result?.success);
     } else {
       SetError(null);
       setPage((currPage) => currPage + 1);
@@ -120,9 +121,9 @@ function Mainform() {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === "Enter") {
         if (page === components.length - 1) {
-          alert("Form submitted");
+          formSubmit();
         } else {
-          setPage((currPage) => currPage + 1);
+          nextPage();
         }
       }
     };
@@ -136,6 +137,7 @@ function Mainform() {
 
   return (
     <div className="flex w-full h-full">
+      <Toaster />
       <div className="w-full absolute overflow-hidden z-20 bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-gray-700">
         <div
           className="bg-primary-color h-1.5 rounded-full dark:bg-green-500 transition-all ease-linear"
@@ -197,7 +199,6 @@ function Mainform() {
                     type={page === components.length - 1 ? "submit" : "button"}
                     onClick={() => {
                       if (page === components.length - 1) {
-                        alert("form submitted");
                       } else {
                         nextPage();
                       }

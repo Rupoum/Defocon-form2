@@ -62,7 +62,7 @@ function Mainform() {
     );
   };
 
-  const validate = () => {
+  const validateSinglePage = () => {
     const fieldToValidate = components[page].name.toLowerCase();
     const fieldValue = formData[fieldToValidate];
 
@@ -87,7 +87,13 @@ function Mainform() {
   const progress = (page / (components.length - 1)) * 100;
 
   const formSubmit = async () => {
-    const result = validate();
+    const result = UserSchema.safeParse(formData);
+
+    if (!result.success) {
+      console.log(result.error.issues);
+      SetError(result.error);
+      return;
+    }
 
     const res = await CreateUser(result.data);
 
@@ -97,13 +103,17 @@ function Mainform() {
   };
 
   const nextPage = () => {
-    const result = validate();
+    const result = validateSinglePage();
     if (!result?.success) {
       console.log(result?.success);
     } else {
       SetError(null);
       setPage((currPage) => currPage + 1);
     }
+  };
+  const previousPage = () => {
+    SetError(null);
+    setPage((currPage) => currPage - 1);
   };
 
   useEffect(() => {
@@ -177,7 +187,7 @@ function Mainform() {
                     size="sm"
                     disabled={page === 0}
                     className="bg-transparent text-white"
-                    onClick={() => setPage((currPage) => currPage - 1)}
+                    onClick={previousPage}
                   >
                     Go Back
                   </Button>

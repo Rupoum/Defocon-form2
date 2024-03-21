@@ -21,7 +21,7 @@ function Phone({
       <Input
         onChange={handleChange}
         type="tel"
-        value={formData[name]}
+        value={formData[name as keyof User]}
         name={name}
         id={name}
         placeholder="Type your phone no  here .."

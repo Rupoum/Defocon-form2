@@ -26,10 +26,17 @@ function Year({
     <div>
       <Select
         value={formData.year}
-        onValueChange={(value) => handleChange({ target: { name, value } })}
+        onValueChange={(value) =>
+          handleChange({
+            target: { name, value },
+          } as React.ChangeEvent<HTMLInputElement>)
+        }
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select your current year " className="md:text-xl" />
+          <SelectValue
+            placeholder="Select your current year "
+            className="md:text-xl"
+          />
         </SelectTrigger>
         <SelectContent>
           {[1, 2, 3, 4].map((year) => {

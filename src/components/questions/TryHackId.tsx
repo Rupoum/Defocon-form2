@@ -23,7 +23,7 @@ function TryHackId({
         type="url"
         name={name}
         id={name}
-        value={formData[name]}
+        value={formData[name as keyof User]}
         placeholder="Type your TryHackMe Id here .."
       />
       {issues &&

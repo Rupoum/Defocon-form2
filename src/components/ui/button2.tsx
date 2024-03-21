@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useRef, useState } from "react";
 
 import { motion } from "framer-motion";
@@ -18,7 +18,7 @@ const SHUFFLE_TIME = 50;
 const CHARS = "!@#$%^&*():{};|,.<>/?";
 
 const EncryptButton = () => {
-  const intervalRef = useRef(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const [text, setText] = useState(TARGET_TEXT);
 
@@ -67,7 +67,6 @@ const EncryptButton = () => {
       className="group relative overflow-hidden rounded-lg border-[1px]   px-4 py-2 font-mono font-medium uppercase text-neutral-300 transition-colors hover:text-red-500"
     >
       <div className="relative z-10 flex items-center gap-2">
-        
         <span>{text}</span>
       </div>
       <motion.span

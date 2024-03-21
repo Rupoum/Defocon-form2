@@ -32,7 +32,11 @@ function Mainform() {
     { Component: Mail, name: "email", title: "Email" },
     { Component: Phone, name: "phone", title: "Phone Number" },
     { Component: Roll, name: "roll", title: "Roll Number" },
-    { Component: TryHackId, name: "tryhackmeId", title: "Try hack me Id" },
+    {
+      Component: TryHackId,
+      name: "tryhackmeId",
+      title: "Try hack me Id (optional)",
+    },
     { Component: Year, name: "year", title: "Year" },
     { Component: Rate, name: "rate", title: "Experience" },
   ];
@@ -104,8 +108,8 @@ function Mainform() {
       router.push("/outro");
     } else {
       toast.error(res.error.message);
+      SetSubmitting(false);
     }
-    SetSubmitting(false);
   };
 
   const nextPage = () => {
@@ -158,7 +162,7 @@ function Mainform() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{
-            type:"spring",
+            type: "spring",
             duration: 1,
             // when: "beforeChildren", // Animate the parent div first
           }}
@@ -168,9 +172,10 @@ function Mainform() {
               initial={{ opacity: 0, x: 100 }} // Initial state with opacity 0 and x position 100 (off-screen to the right)
               animate={{ opacity: 1, x: 0 }} // Animation to make the content appear with opacity 1 and x position 0
               exit={{ opacity: 0, x: -50 }}
-              transition={{ 
-                type:"spring",
-                duration: 1 }} // Transition duration for the animation
+              transition={{
+                type: "spring",
+                duration: 1,
+              }} // Transition duration for the animation
             >
               <div className="">
                 <CardHeader>
